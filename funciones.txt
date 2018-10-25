@@ -1,0 +1,13 @@
+                            import numpy as np
+                            import matplotlib.pyplot as plt
+                            import collections as cl
+                            from pylab import *
+                            import scipy as sp
+                            import scipy.stats as sps
+Promedio                    average(a)
+Media                       mean(a)
+Mediana                     median(a)
+Desviación Estándar         std(a)
+varianza                    var(a)
+Densidad de Probabilidad    scipy.stats.norm.pdf(x, loc=0, scale=1)
+Densidad Acumulativa        scipy.stats.norm.cdf(x, loc=0, scale=1)
