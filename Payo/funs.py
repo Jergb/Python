@@ -74,49 +74,73 @@ def tukey(variable):
     Ls = variable.quantile(q=.75) + RIQ * 1.5
     return Li, Ls
 
-def filtro(variable,i,q):
+def filtro(filtrado,variable,i,q):
     'Iguala el valor de una medición a un determinado valor límite'
-    global filtrado
-    
+       
     try:
         filtrado[variable][i] = filtrado[variable][i-120:i].median()   
         
     except KeyError:
         filtrado[variable][i]= q
-    return
+    return filtrado
 
+def filtrar_variables(v,lim_i,lim_s):
+    'Ajusta los valores atípicos en las mediciones de la variable v'
+    global filtrar
+    variable =filtrar.columns[v]
+    Li, Ls = tukey(filtrado[variable])
+
+    for i in range(len(filtrado[variable])):
+              
+        if filtrado[variable][i] >= lim_s:
+            filtro(filtrar,variable,i,filtrar[variable].quantile(.75))
+        
+        elif filtrado[variable][i] <= lim_i:
+            filtro(filtrar,variable,i,filtrar[variable].quantile(.25))
+            
+        elif filtrado[variable][i] >= Ls and Ls > lim_s:
+            filtro(filtrar,variable,i,filtrar[variable].quantile(.75))
+            
+        elif filtrado[variable][i] <= Li and Li < lim_i:
+            filtro(filtrar,variable,i,filtrar[variable].quantile(.25))
+            
+    plt.plot(filtrar.iloc[:,v],'blue',label='filtrado')
+    plt.legend()
+    return filtrar.corr()
 def filtro_var(v,lim_i,lim_s):
     'Ajusta los valores atípicos en las mediciones de la variable v'
     
-    global filtrado
+    global mediciones_cacao
+    filtrado = mediciones_cacao.copy()
     variable=filtrado.columns[v]
     Li, Ls = tukey(filtrado[variable])
 
     for i in range(len(filtrado[variable])):
               
         if filtrado[variable][i] >= lim_s:
-            filtro(variable,i,filtrado[variable].quantile(.75))
+            filtro(filtrado,variable,i,filtrado[variable].quantile(.75))
         
         elif filtrado[variable][i] <= lim_i:
-            filtro(variable,i,filtrado[variable].quantile(.25))
+            filtro(filtrado,variable,i,filtrado[variable].quantile(.25))
             
         elif filtrado[variable][i] >= Ls and Ls > lim_s:
-            filtro(variable,i,filtrado[variable].quantile(.75))
+            filtro(filtrado,variable,i,filtrado[variable].quantile(.75))
             
         elif filtrado[variable][i] <= Li and Li < lim_i:
-            filtro(variable,i,filtrado[variable].quantile(.25))
+            filtro(filtrado,variable,i,filtrado[variable].quantile(.25))
+            
     return filtrado.corr()
 
 def up_ajuste(filtrado,v):
-    global ajustado
+    global ajustado,filtar
     variable=ajustado.columns[v]
-    ajustado[variable]=filtrado[variable].copy()
+    ajustado[variable]=filtrar[variable].copy()
     return
 
 def ajuste_variacion(v):
     'Ajusta los valores que presentan una variación superior a la std'
-    global ajustado
-    up_ajuste(filtrado,v)
+    global ajustado,filtrar,mediciones_cacao
+    up_ajuste(filtrar,v)
     variable=ajustado.columns[v]
     ventana=60
     rolling_std = ajustado[variable].rolling(ventana).std()
@@ -132,7 +156,8 @@ def ajuste_variacion(v):
     suave=ajustado[variable].copy()
     suave[nvalores]=rolling_median[nvalores+ventana]
     plt.figure()
-    plt.plot(filtrado[variable],label='filtrado')
+    plt.title(mediciones_cacao.columns[v])
+    plt.plot(mediciones_cacao[variable],label='datos')
     plt.plot(suave,label='suavizado')
     plt.legend()
     ajustado[variable]=suave
@@ -140,13 +165,13 @@ def ajuste_variacion(v):
 
 def val_menor(L1,L2,lim_s,var,var_rel):
     'Determia la columna de correlación entre dos variables'
-    global filtrado
     correl={'corre':[],'lim':[]}
     #ciclo for para variar el rango desde el límite inferior hasta el límite de Tukey
     for rango in range(int(L1),int(L2)):
         # Eto se puede  variar y que filtro var devuelva el indice de correlación de Pearson
 #        filtrado = mediciones_cacao.copy()
         # Aplcación del filtro de rango
+    #### Definir el dataset al que se le aplicará el filtro
         corre = filtro_var(var,rango,lim_s)
         correl['corre'].append(corre.iloc[var,var_rel])
         correl['lim'].append(rango)
