@@ -18,8 +18,8 @@ from datetime import timedelta
 def time_transcurrido(datos, i):
     'Calcula el tiempo transcurrido entre dos mediciones'
     
-    tiempo_transcurrido = int((datos.TIME[i] - datos.TIME[i - 1]).seconds / 60)
-    tiempo_transcurrido += (datos.TIME[i] - datos.TIME[i - 1]).days * 24 * 60
+    tiempo_transcurrido = int((datos.index[i] - datos.index[i - 1]).seconds / 60)
+    tiempo_transcurrido += (datos.index[i] - datos.index[i - 1]).days * 24 * 60
 
     return tiempo_transcurrido
 
@@ -48,20 +48,21 @@ def separa_datos(datos, edge):
 
             data.append(dataset.iloc[dataset_i])
 
-        separar = pd.DataFrame(data).reset_index(drop=True)
+        separar = pd.DataFrame(data)
         data = []
         separados.append(separar)
         
-    inicio = [datos.TIME[x] for x in inicio]
-    fin = [datos.TIME[x-1] for x in fin]
+    inicio = [datos.index[x] for x in inicio]
+    fin = [datos.index[x-1] for x in fin]
     tamaño= [len(separados[x]) for x in range(len(separados))]
     duracion = pd.DataFrame({'inicio': inicio, 'fin': fin, 'datos': tamaño})
     return separados, duracion
 
+
 def info_var(v):
     'Grafica todos los valores medidos para la variable v'
     variable = mediciones_cacao.columns[v]
-    
+    plt.figure(figsize=[20,5])
     plt.plot(mediciones_cacao[variable],'orange',label='datos')
     plt.title(variable)
     plt.legend()
@@ -146,16 +147,18 @@ def ajuste_variacion(v):
     rolling_std = ajustado[variable].rolling(ventana).std()
     rolling_std_inv=ajustado[variable].iloc[::-1].rolling(ventana).std().iloc[::-1]
     indice=rolling_std[rolling_std.isnull().values].index
-    rolling_std[indice[0]]=rolling_std_inv[indice[0]]
+    rolling_std.loc[indice]=rolling_std_inv.loc[indice]
 
     nvalores=ajustado[variable][rolling_std>(rolling_std.mean())].index.values
+    print('nvalores: ',nvalores)
     rolling_median=ajustado[variable].rolling(ventana).median()
+    # Hace una ventana deslizante desde la última fila
     rolling_median_inv=ajustado[variable].iloc[::-1].rolling(ventana).median().iloc[::-1]
     indice=rolling_median[rolling_median.isnull().values].index
-    rolling_median[indice[0]]=rolling_median_inv[indice[0]]
+    rolling_median.loc[indice]=rolling_median_inv.loc[indice]
     suave=ajustado[variable].copy()
-    suave[nvalores]=rolling_median[nvalores+ventana]
-    plt.figure()
+    suave[nvalores]=rolling_median[nvalores+ventana] # HAcer para sumar a detatime
+    plt.figure(figsize=[20,5])
     plt.title(mediciones_cacao.columns[v])
     plt.plot(mediciones_cacao[variable],label='datos')
     plt.plot(suave,label='suavizado')
