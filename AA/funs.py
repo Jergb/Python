@@ -108,6 +108,7 @@ def filtrar_variables(v,lim_i,lim_s):
     plt.plot(filtrar.iloc[:,v],'blue',label='filtrado')
     plt.legend()
     return filtrar.corr()
+
 def filtro_var(v,lim_i,lim_s):
     'Ajusta los valores atípicos en las mediciones de la variable v'
     
@@ -149,15 +150,18 @@ def ajuste_variacion(v):
     indice=rolling_std[rolling_std.isnull().values].index
     rolling_std.loc[indice]=rolling_std_inv.loc[indice]
 
-    nvalores=ajustado[variable][rolling_std>(rolling_std.mean())].index.values
-    print('nvalores: ',nvalores)
-    rolling_median=ajustado[variable].rolling(ventana).median()
+    suave=ajustado[variable].copy()
+    nvalores=suave[rolling_std>(rolling_std.mean())].index
+    nnvalores=[suave.index.get_loc(x) for x in nvalores]
+    #print('nvalores: ',nvalores)
+    rolling_median=suave.rolling(ventana).median()
     # Hace una ventana deslizante desde la última fila
-    rolling_median_inv=ajustado[variable].iloc[::-1].rolling(ventana).median().iloc[::-1]
+    rolling_median_inv=suave.iloc[::-1].rolling(ventana).median().iloc[::-1]
     indice=rolling_median[rolling_median.isnull().values].index
     rolling_median.loc[indice]=rolling_median_inv.loc[indice]
-    suave=ajustado[variable].copy()
-    suave[nvalores]=rolling_median[nvalores+ventana] # HAcer para sumar a detatime
+    # mueve el dataframe ventana filas
+    nsu = [x+ventana for x in nnvalores if x+ventana < len(suave)]
+    suave[nnvalores[0:len(nsu)]]=rolling_median[nsu]
     plt.figure(figsize=[20,5])
     plt.title(mediciones_cacao.columns[v])
     plt.plot(mediciones_cacao[variable],label='datos')
