@@ -11,7 +11,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from ggplot import *
 import scipy as sp
-from IPython.display import Markdown
+from IPython.display import display, Markdown, Latex
 from scipy.spatial.distance import mahalanobis as MH
 from scipy.spatial.distance import euclidean as EU
 from matplotlib.ticker import FuncFormatter
