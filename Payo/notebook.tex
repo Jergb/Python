@@ -1,0 +1,1260 @@
+
+% Default to the notebook output style
+
+    
+
+
+% Inherit from the specified cell style.
+
+
+
+
+    
+\documentclass[11pt]{article}
+
+    
+    
+    \usepackage[T1]{fontenc}
+    % Nicer default font (+ math font) than Computer Modern for most use cases
+    \usepackage{mathpazo}
+
+    % Basic figure setup, for now with no caption control since it's done
+    % automatically by Pandoc (which extracts ![](path) syntax from Markdown).
+    \usepackage{graphicx}
+    % We will generate all images so they have a width \maxwidth. This means
+    % that they will get their normal width if they fit onto the page, but
+    % are scaled down if they would overflow the margins.
+    \makeatletter
+    \def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth
+    \else\Gin@nat@width\fi}
+    \makeatother
+    \let\Oldincludegraphics\includegraphics
+    % Set max figure width to be 80% of text width, for now hardcoded.
+    \renewcommand{\includegraphics}[1]{\Oldincludegraphics[width=.8\maxwidth]{#1}}
+    % Ensure that by default, figures have no caption (until we provide a
+    % proper Figure object with a Caption API and a way to capture that
+    % in the conversion process - todo).
+    \usepackage{caption}
+    \DeclareCaptionLabelFormat{nolabel}{}
+    \captionsetup{labelformat=nolabel}
+
+    \usepackage{adjustbox} % Used to constrain images to a maximum size 
+    \usepackage{xcolor} % Allow colors to be defined
+    \usepackage{enumerate} % Needed for markdown enumerations to work
+    \usepackage{geometry} % Used to adjust the document margins
+    \usepackage{amsmath} % Equations
+    \usepackage{amssymb} % Equations
+    \usepackage{textcomp} % defines textquotesingle
+    % Hack from http://tex.stackexchange.com/a/47451/13684:
+    \AtBeginDocument{%
+        \def\PYZsq{\textquotesingle}% Upright quotes in Pygmentized code
+    }
+    \usepackage{upquote} % Upright quotes for verbatim code
+    \usepackage{eurosym} % defines \euro
+    \usepackage[mathletters]{ucs} % Extended unicode (utf-8) support
+    \usepackage[utf8x]{inputenc} % Allow utf-8 characters in the tex document
+    \usepackage{fancyvrb} % verbatim replacement that allows latex
+    \usepackage{grffile} % extends the file name processing of package graphics 
+                         % to support a larger range 
+    % The hyperref package gives us a pdf with properly built
+    % internal navigation ('pdf bookmarks' for the table of contents,
+    % internal cross-reference links, web links for URLs, etc.)
+    \usepackage{hyperref}
+    \usepackage{longtable} % longtable support required by pandoc >1.10
+    \usepackage{booktabs}  % table support for pandoc > 1.12.2
+    \usepackage[inline]{enumitem} % IRkernel/repr support (it uses the enumerate* environment)
+    \usepackage[normalem]{ulem} % ulem is needed to support strikethroughs (\sout)
+                                % normalem makes italics be italics, not underlines
+    
+
+    
+    
+    % Colors for the hyperref package
+    \definecolor{urlcolor}{rgb}{0,.145,.698}
+    \definecolor{linkcolor}{rgb}{.71,0.21,0.01}
+    \definecolor{citecolor}{rgb}{.12,.54,.11}
+
+    % ANSI colors
+    \definecolor{ansi-black}{HTML}{3E424D}
+    \definecolor{ansi-black-intense}{HTML}{282C36}
+    \definecolor{ansi-red}{HTML}{E75C58}
+    \definecolor{ansi-red-intense}{HTML}{B22B31}
+    \definecolor{ansi-green}{HTML}{00A250}
+    \definecolor{ansi-green-intense}{HTML}{007427}
+    \definecolor{ansi-yellow}{HTML}{DDB62B}
+    \definecolor{ansi-yellow-intense}{HTML}{B27D12}
+    \definecolor{ansi-blue}{HTML}{208FFB}
+    \definecolor{ansi-blue-intense}{HTML}{0065CA}
+    \definecolor{ansi-magenta}{HTML}{D160C4}
+    \definecolor{ansi-magenta-intense}{HTML}{A03196}
+    \definecolor{ansi-cyan}{HTML}{60C6C8}
+    \definecolor{ansi-cyan-intense}{HTML}{258F8F}
+    \definecolor{ansi-white}{HTML}{C5C1B4}
+    \definecolor{ansi-white-intense}{HTML}{A1A6B2}
+
+    % commands and environments needed by pandoc snippets
+    % extracted from the output of `pandoc -s`
+    \providecommand{\tightlist}{%
+      \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+    \DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+    % Add ',fontsize=\small' for more characters per line
+    \newenvironment{Shaded}{}{}
+    \newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{{#1}}}
+    \newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{{#1}}}
+    \newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{{#1}}}}
+    \newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{{#1}}}
+    \newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{{#1}}}
+    \newcommand{\RegionMarkerTok}[1]{{#1}}
+    \newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{{#1}}}}
+    \newcommand{\NormalTok}[1]{{#1}}
+    
+    % Additional commands for more recent versions of Pandoc
+    \newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{{#1}}}
+    \newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{{#1}}}
+    \newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{{#1}}}
+    \newcommand{\ImportTok}[1]{{#1}}
+    \newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{{#1}}}}
+    \newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{{#1}}}
+    \newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{{#1}}}}
+    \newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{{#1}}}
+    \newcommand{\BuiltInTok}[1]{{#1}}
+    \newcommand{\ExtensionTok}[1]{{#1}}
+    \newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{{#1}}}
+    \newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{{#1}}}
+    \newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{{#1}}}}}
+    
+    
+    % Define a nice break command that doesn't care if a line doesn't already
+    % exist.
+    \def\br{\hspace*{\fill} \\* }
+    % Math Jax compatability definitions
+    \def\gt{>}
+    \def\lt{<}
+    % Document parameters
+    \title{Correlaccion2}
+    
+    
+    
+
+    % Pygments definitions
+    
+\makeatletter
+\def\PY@reset{\let\PY@it=\relax \let\PY@bf=\relax%
+    \let\PY@ul=\relax \let\PY@tc=\relax%
+    \let\PY@bc=\relax \let\PY@ff=\relax}
+\def\PY@tok#1{\csname PY@tok@#1\endcsname}
+\def\PY@toks#1+{\ifx\relax#1\empty\else%
+    \PY@tok{#1}\expandafter\PY@toks\fi}
+\def\PY@do#1{\PY@bc{\PY@tc{\PY@ul{%
+    \PY@it{\PY@bf{\PY@ff{#1}}}}}}}
+\def\PY#1#2{\PY@reset\PY@toks#1+\relax+\PY@do{#2}}
+
+\expandafter\def\csname PY@tok@w\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.73,0.73}{##1}}}
+\expandafter\def\csname PY@tok@c\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.74,0.48,0.00}{##1}}}
+\expandafter\def\csname PY@tok@k\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.69,0.00,0.25}{##1}}}
+\expandafter\def\csname PY@tok@o\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ow\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@nn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@ne\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.82,0.25,0.23}{##1}}}
+\expandafter\def\csname PY@tok@nv\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@no\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ni\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.60,0.60,0.60}{##1}}}
+\expandafter\def\csname PY@tok@na\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.49,0.56,0.16}{##1}}}
+\expandafter\def\csname PY@tok@nt\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@nd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.67,0.13,1.00}{##1}}}
+\expandafter\def\csname PY@tok@s\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sd\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@si\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@se\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sr\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.40,0.53}{##1}}}
+\expandafter\def\csname PY@tok@ss\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sx\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@m\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@gh\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gu\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.50,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@gd\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.63,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.63,0.00}{##1}}}
+\expandafter\def\csname PY@tok@gr\endcsname{\def\PY@tc##1{\textcolor[rgb]{1.00,0.00,0.00}{##1}}}
+\expandafter\def\csname PY@tok@ge\endcsname{\let\PY@it=\textit}
+\expandafter\def\csname PY@tok@gs\endcsname{\let\PY@bf=\textbf}
+\expandafter\def\csname PY@tok@gp\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,0.50}{##1}}}
+\expandafter\def\csname PY@tok@go\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.53,0.53,0.53}{##1}}}
+\expandafter\def\csname PY@tok@gt\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.27,0.87}{##1}}}
+\expandafter\def\csname PY@tok@err\endcsname{\def\PY@bc##1{\setlength{\fboxsep}{0pt}\fcolorbox[rgb]{1.00,0.00,0.00}{1,1,1}{\strut ##1}}}
+\expandafter\def\csname PY@tok@kc\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kd\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kn\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@kr\endcsname{\let\PY@bf=\textbf\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@bp\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.50,0.00}{##1}}}
+\expandafter\def\csname PY@tok@fm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.00,0.00,1.00}{##1}}}
+\expandafter\def\csname PY@tok@vc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vg\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@vm\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.10,0.09,0.49}{##1}}}
+\expandafter\def\csname PY@tok@sa\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sc\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@dl\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s2\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@sh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@s1\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.73,0.13,0.13}{##1}}}
+\expandafter\def\csname PY@tok@mb\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mf\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mh\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mi\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@il\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@mo\endcsname{\def\PY@tc##1{\textcolor[rgb]{0.40,0.40,0.40}{##1}}}
+\expandafter\def\csname PY@tok@ch\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cm\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cpf\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@c1\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+\expandafter\def\csname PY@tok@cs\endcsname{\let\PY@it=\textit\def\PY@tc##1{\textcolor[rgb]{0.25,0.50,0.50}{##1}}}
+
+\def\PYZbs{\char`\\}
+\def\PYZus{\char`\_}
+\def\PYZob{\char`\{}
+\def\PYZcb{\char`\}}
+\def\PYZca{\char`\^}
+\def\PYZam{\char`\&}
+\def\PYZlt{\char`\<}
+\def\PYZgt{\char`\>}
+\def\PYZsh{\char`\#}
+\def\PYZpc{\char`\%}
+\def\PYZdl{\char`\$}
+\def\PYZhy{\char`\-}
+\def\PYZsq{\char`\'}
+\def\PYZdq{\char`\"}
+\def\PYZti{\char`\~}
+% for compatibility with earlier versions
+\def\PYZat{@}
+\def\PYZlb{[}
+\def\PYZrb{]}
+\makeatother
+
+
+    % Exact colors from NB
+    \definecolor{incolor}{rgb}{0.0, 0.0, 0.5}
+    \definecolor{outcolor}{rgb}{0.545, 0.0, 0.0}
+
+
+
+    
+    % Prevent overflowing lines due to hard-to-break entities
+    \sloppy 
+    % Setup hyperref package
+    \hypersetup{
+      breaklinks=true,  % so long urls are correctly broken across lines
+      colorlinks=true,
+      urlcolor=urlcolor,
+      linkcolor=linkcolor,
+      citecolor=citecolor,
+      }
+    % Slightly bigger margins than the latex defaults
+    
+    \geometry{verbose,tmargin=1in,bmargin=1in,lmargin=1in,rmargin=1in}
+    
+    
+
+    \begin{document}
+    
+    
+    \maketitle
+    
+    
+
+    
+    \section{Importa los módulos necesarios y establece
+configuraciones}\label{importa-los-muxf3dulos-necesarios-y-establece-configuraciones}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}1}]:} \PY{k+kn}{import} \PY{n+nn}{pandas} \PY{k}{as} \PY{n+nn}{pd}
+        \PY{k+kn}{import} \PY{n+nn}{numpy} \PY{k}{as} \PY{n+nn}{np}
+        \PY{k+kn}{import} \PY{n+nn}{matplotlib}\PY{n+nn}{.}\PY{n+nn}{pyplot} \PY{k}{as} \PY{n+nn}{plt}
+        \PY{k+kn}{import} \PY{n+nn}{funs}
+        \PY{k+kn}{import} \PY{n+nn}{seaborn} \PY{k}{as} \PY{n+nn}{sns}
+        \PY{k+kn}{import} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{plotly} \PY{k}{as} \PY{n+nn}{py}
+        \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{graph\PYZus{}objs} \PY{k}{import} \PY{o}{*}
+        \PY{k+kn}{from} \PY{n+nn}{plotly}\PY{n+nn}{.}\PY{n+nn}{offline} \PY{k}{import} \PY{n}{download\PYZus{}plotlyjs}\PY{p}{,} \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{,} \PY{n}{plot}\PY{p}{,} \PY{n}{iplot}
+        \PY{k+kn}{from} \PY{n+nn}{sklearn}\PY{n+nn}{.}\PY{n+nn}{preprocessing} \PY{k}{import} \PY{n}{StandardScaler}
+        \PY{n}{init\PYZus{}notebook\PYZus{}mode}\PY{p}{(}\PY{n}{connected}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{pd}\PY{o}{.}\PY{n}{options}\PY{o}{.}\PY{n}{display}\PY{o}{.}\PY{n}{max\PYZus{}rows} \PY{o}{=} \PY{l+m+mi}{10}
+\end{Verbatim}
+
+
+    
+    
+    \subsection{Importa el .csv que contiene las mediciones de todos los
+nodos}\label{importa-el-.csv-que-contiene-las-mediciones-de-todos-los-nodos}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}2}]:} \PY{n}{df} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{read\PYZus{}csv}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{all\PYZus{}nodos.csv}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}2}]:}        id\_Variable  id\_nodo  Temperatura  Humedad  Hum. Tierra  Nivel\_UV  \textbackslash{}
+        0                1        4            0        0         0.00         0   
+        1                2        5            0        0         0.00         0   
+        2                3        3           30       42         0.01         0   
+        3                4        2           30       44         0.01         0   
+        4                5        6           30       44         0.01        12   
+        {\ldots}            {\ldots}      {\ldots}          {\ldots}      {\ldots}          {\ldots}       {\ldots}   
+        50496        50497        8           60       78         0.98         0   
+        50497        50498        3           32       29         1.14         0   
+        50498        50499        2           32       17         0.82         0   
+        50499        50500        5           33       29         6.43         0   
+        50500        50501        8           60       78         0.98         0   
+        
+               INT. LUMÍN  Carga  RSSI  T\_SERVIDOR  T\_NODO  TRY  FECHA   AÑO  MES  \textbackslash{}
+        0               0   0.00    39         336     170   63    NaN  2018    4   
+        1               0   0.00     0        1926    1678   63    NaN  2018    4   
+        2            1038   0.60    55           0     117   68    NaN  2018    4   
+        3             791 -11.67    56           0     105    0    NaN  2018    4   
+        4            5777   0.59    46         291     125    0    NaN  2018    4   
+        {\ldots}           {\ldots}    {\ldots}   {\ldots}         {\ldots}     {\ldots}  {\ldots}    {\ldots}   {\ldots}  {\ldots}   
+        50496        5853   1.33    87         389     139    0    NaN  2018    6   
+        50497        5835 -11.67    84           0       0    0    NaN  2018    6   
+        50498        5853   1.69    83           0       0    0    NaN  2018    6   
+        50499        5865   1.50    82           0       0    0    NaN  2018    6   
+        50500        5853   1.33    86           0       0    0    NaN  2018    6   
+        
+               DIA  HORA  MINUTO  TIPO\_Nodo  
+        0       27     8      17          3  
+        1       27     8      17          3  
+        2       27     8      17          0  
+        3       27     8      18          0  
+        4       27     8      18          3  
+        {\ldots}    {\ldots}   {\ldots}     {\ldots}        {\ldots}  
+        50496   11     9      17          3  
+        50497   11     9      17          0  
+        50498   11     9      17          0  
+        50499   11     9      17          0  
+        50500   11     9      18          3  
+        
+        [50501 rows x 19 columns]
+\end{Verbatim}
+            
+    \subsection{Suprime las columnas que no se
+necesitan}\label{suprime-las-columnas-que-no-se-necesitan}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}3}]:} \PY{k}{try}\PY{p}{:}
+            \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZus{}NODO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TRY}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FECHA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Carga}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RSSI}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{T\PYZus{}SERVIDOR}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIPO\PYZus{}Nodo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{k}{except} \PY{n+ne}{KeyError}\PY{p}{:}
+            \PY{k}{pass}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}3}]:}        id\_Variable  id\_nodo  Temperatura  Humedad  Hum. Tierra  Nivel\_UV  \textbackslash{}
+        0                1        4            0        0         0.00         0   
+        1                2        5            0        0         0.00         0   
+        2                3        3           30       42         0.01         0   
+        3                4        2           30       44         0.01         0   
+        4                5        6           30       44         0.01        12   
+        {\ldots}            {\ldots}      {\ldots}          {\ldots}      {\ldots}          {\ldots}       {\ldots}   
+        50496        50497        8           60       78         0.98         0   
+        50497        50498        3           32       29         1.14         0   
+        50498        50499        2           32       17         0.82         0   
+        50499        50500        5           33       29         6.43         0   
+        50500        50501        8           60       78         0.98         0   
+        
+               INT. LUMÍN   AÑO  MES  DIA  HORA  MINUTO  
+        0               0  2018    4   27     8      17  
+        1               0  2018    4   27     8      17  
+        2            1038  2018    4   27     8      17  
+        3             791  2018    4   27     8      18  
+        4            5777  2018    4   27     8      18  
+        {\ldots}           {\ldots}   {\ldots}  {\ldots}  {\ldots}   {\ldots}     {\ldots}  
+        50496        5853  2018    6   11     9      17  
+        50497        5835  2018    6   11     9      17  
+        50498        5853  2018    6   11     9      17  
+        50499        5865  2018    6   11     9      17  
+        50500        5853  2018    6   11     9      18  
+        
+        [50501 rows x 12 columns]
+\end{Verbatim}
+            
+    \subsection{Atrasa la columna HORA del mes mayo en tres unidades, la
+hora estaba adelantada para esos
+registros}\label{atrasa-la-columna-hora-del-mes-mayo-en-tres-unidades-la-hora-estaba-adelantada-para-esos-registros}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}4}]:} \PY{n}{ind\PYZus{}rem} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{n+nb}{int}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{HORA}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{o}{\PYZhy{}}\PY{l+m+mi}{3}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{df}\PY{o}{.}\PY{n}{MES}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{6}\PY{p}{]}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HORA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{ind\PYZus{}rem} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{x}\PY{p}{,} \PY{n}{df}\PY{o}{.}\PY{n}{HORA}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{+}\PY{l+m+mi}{24}\PY{p}{,}\PY{n}{df}\PY{o}{.}\PY{n}{DIA}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{\PYZhy{}}\PY{l+m+mi}{1}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{df}\PY{o}{.}\PY{n}{HORA}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{o}{\PYZlt{}}\PY{l+m+mi}{0}\PY{p}{]}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HORA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DIA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+\end{Verbatim}
+
+
+    \subsection{Cambia los nombres de las
+columnas}\label{cambia-los-nombres-de-las-columnas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}5}]:} \PY{n}{old\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id\PYZus{}Variable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id\PYZus{}nodo}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Temperatura}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Humedad}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Hum. Tierra}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nivel\PYZus{}UV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INT. LUMÍN}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} 
+        \PY{n}{new\PYZus{}names} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id\PYZus{}Variable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NODO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TEMPERATURA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HUMEDAD RELATIVA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HUMEDAD DE LA TIERRA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NIVEL UV}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{INTENSIDAD LUMÍNICA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}
+        \PY{n}{df}\PY{o}{.}\PY{n}{rename}\PY{p}{(}\PY{n}{columns}\PY{o}{=}\PY{n+nb}{dict}\PY{p}{(}\PY{n+nb}{zip}\PY{p}{(}\PY{n}{old\PYZus{}names}\PY{p}{,} \PY{n}{new\PYZus{}names}\PY{p}{)}\PY{p}{)}\PY{p}{,} \PY{n}{inplace}\PY{o}{=}\PY{k+kc}{True}\PY{p}{)}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}5}]:}        id\_Variable  NODO  TEMPERATURA  HUMEDAD RELATIVA  HUMEDAD DE LA TIERRA  \textbackslash{}
+        0                1     4            0                 0                  0.00   
+        1                2     5            0                 0                  0.00   
+        2                3     3           30                42                  0.01   
+        3                4     2           30                44                  0.01   
+        4                5     6           30                44                  0.01   
+        {\ldots}            {\ldots}   {\ldots}          {\ldots}               {\ldots}                   {\ldots}   
+        50496        50497     8           60                78                  0.98   
+        50497        50498     3           32                29                  1.14   
+        50498        50499     2           32                17                  0.82   
+        50499        50500     5           33                29                  6.43   
+        50500        50501     8           60                78                  0.98   
+        
+               NIVEL UV  INTENSIDAD LUMÍNICA   AÑO  MES  DIA  HORA  MINUTO  
+        0             0                    0  2018    4   27     5      17  
+        1             0                    0  2018    4   27     5      17  
+        2             0                 1038  2018    4   27     5      17  
+        3             0                  791  2018    4   27     5      18  
+        4            12                 5777  2018    4   27     5      18  
+        {\ldots}         {\ldots}                  {\ldots}   {\ldots}  {\ldots}  {\ldots}   {\ldots}     {\ldots}  
+        50496         0                 5853  2018    6   11     9      17  
+        50497         0                 5835  2018    6   11     9      17  
+        50498         0                 5853  2018    6   11     9      17  
+        50499         0                 5865  2018    6   11     9      17  
+        50500         0                 5853  2018    6   11     9      18  
+        
+        [50501 rows x 12 columns]
+\end{Verbatim}
+            
+    \subsection{Se introduce un cero antes de las unidades de las columnas
+MES, DIA, HORA,
+MINUTO}\label{se-introduce-un-cero-antes-de-las-unidades-de-las-columnas-mes-dia-hora-minuto}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}6}]:} \PY{n}{ind\PYZus{}rem} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+        \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DIA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{HORA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MINUTO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{:}
+            \PY{n}{ind\PYZus{}rem}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{p}{[}\PY{n}{x}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{0}\PY{l+s+s1}{\PYZsq{}}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)}\PY{p}{]} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)} \PY{k}{if} \PY{n}{df}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{[}\PY{n}{x}\PY{p}{]} \PY{o}{\PYZlt{}} \PY{l+m+mi}{10}\PY{p}{]}
+            \PY{n}{df}\PY{o}{.}\PY{n}{loc}\PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{,}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{ind\PYZus{}rem}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{]}\PY{o}{.}\PY{n}{values}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}6}]:}        id\_Variable  NODO  TEMPERATURA  HUMEDAD RELATIVA  HUMEDAD DE LA TIERRA  \textbackslash{}
+        0                1     4            0                 0                  0.00   
+        1                2     5            0                 0                  0.00   
+        2                3     3           30                42                  0.01   
+        3                4     2           30                44                  0.01   
+        4                5     6           30                44                  0.01   
+        {\ldots}            {\ldots}   {\ldots}          {\ldots}               {\ldots}                   {\ldots}   
+        50496        50497     8           60                78                  0.98   
+        50497        50498     3           32                29                  1.14   
+        50498        50499     2           32                17                  0.82   
+        50499        50500     5           33                29                  6.43   
+        50500        50501     8           60                78                  0.98   
+        
+               NIVEL UV  INTENSIDAD LUMÍNICA   AÑO MES DIA HORA MINUTO  
+        0             0                    0  2018  04  27   05     17  
+        1             0                    0  2018  04  27   05     17  
+        2             0                 1038  2018  04  27   05     17  
+        3             0                  791  2018  04  27   05     18  
+        4            12                 5777  2018  04  27   05     18  
+        {\ldots}         {\ldots}                  {\ldots}   {\ldots}  ..  ..  {\ldots}    {\ldots}  
+        50496         0                 5853  2018  06  11   09     17  
+        50497         0                 5835  2018  06  11   09     17  
+        50498         0                 5853  2018  06  11   09     17  
+        50499         0                 5865  2018  06  11   09     17  
+        50500         0                 5853  2018  06  11   09     18  
+        
+        [50501 rows x 12 columns]
+\end{Verbatim}
+            
+    \subsection{Se crea una columna con la estrucutura
+AÑO+MES+DIA+HORA+MINUTO}\label{se-crea-una-columna-con-la-estrucutura-auxf1omesdiahoraminuto}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}7}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{AÑO}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{MES}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{DIA}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{HORA}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{MINUTO}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+        \PY{n}{df}\PY{o}{.}\PY{n}{TIME}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}7}]:} 0        201804270517
+        1        201804270517
+        2        201804270517
+        3        201804270518
+        4        201804270518
+                     {\ldots}     
+        50496    201806110917
+        50497    201806110917
+        50498    201806110917
+        50499    201806110917
+        50500    201806110918
+        Name: TIME, Length: 50501, dtype: object
+\end{Verbatim}
+            
+    \subsection{Convierte la columna TIME al fomato
+Timestamp}\label{convierte-la-columna-time-al-fomato-timestamp}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}8}]:} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]} \PY{o}{=} \PY{p}{[}\PY{n}{pd}\PY{o}{.}\PY{n}{Timestamp}\PY{p}{(}\PY{n}{x}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n}{df}\PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{]}
+        \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}8}]:}        id\_Variable  NODO  TEMPERATURA  HUMEDAD RELATIVA  HUMEDAD DE LA TIERRA  \textbackslash{}
+        0                1     4            0                 0                  0.00   
+        1                2     5            0                 0                  0.00   
+        2                3     3           30                42                  0.01   
+        3                4     2           30                44                  0.01   
+        4                5     6           30                44                  0.01   
+        {\ldots}            {\ldots}   {\ldots}          {\ldots}               {\ldots}                   {\ldots}   
+        50496        50497     8           60                78                  0.98   
+        50497        50498     3           32                29                  1.14   
+        50498        50499     2           32                17                  0.82   
+        50499        50500     5           33                29                  6.43   
+        50500        50501     8           60                78                  0.98   
+        
+               NIVEL UV  INTENSIDAD LUMÍNICA   AÑO MES DIA HORA MINUTO  \textbackslash{}
+        0             0                    0  2018  04  27   05     17   
+        1             0                    0  2018  04  27   05     17   
+        2             0                 1038  2018  04  27   05     17   
+        3             0                  791  2018  04  27   05     18   
+        4            12                 5777  2018  04  27   05     18   
+        {\ldots}         {\ldots}                  {\ldots}   {\ldots}  ..  ..  {\ldots}    {\ldots}   
+        50496         0                 5853  2018  06  11   09     17   
+        50497         0                 5835  2018  06  11   09     17   
+        50498         0                 5853  2018  06  11   09     17   
+        50499         0                 5865  2018  06  11   09     17   
+        50500         0                 5853  2018  06  11   09     18   
+        
+                             TIME  
+        0     2018-04-27 05:17:00  
+        1     2018-04-27 05:17:00  
+        2     2018-04-27 05:17:00  
+        3     2018-04-27 05:18:00  
+        4     2018-04-27 05:18:00  
+        {\ldots}                   {\ldots}  
+        50496 2018-06-11 09:17:00  
+        50497 2018-06-11 09:17:00  
+        50498 2018-06-11 09:17:00  
+        50499 2018-06-11 09:17:00  
+        50500 2018-06-11 09:18:00  
+        
+        [50501 rows x 13 columns]
+\end{Verbatim}
+            
+    \subsection{Suprime las columnas que no se van a
+utilizar}\label{suprime-las-columnas-que-no-se-van-a-utilizar}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}9}]:} \PY{k}{try}\PY{p}{:}
+            \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{id\PYZus{}Variable}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{AÑO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MES}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{DIA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MINUTO}\PY{l+s+s1}{\PYZsq{}}\PY{p}{]}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+        \PY{k}{except} \PY{n+ne}{KeyError}\PY{p}{:}
+            \PY{k}{pass}
+\end{Verbatim}
+
+
+    \subsection{Elimina los elementos de df anteriores al registro 2882,
+correspondientes a
+pruebas}\label{elimina-los-elementos-de-df-anteriores-al-registro-2882-correspondientes-a-pruebas}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}10}]:} \PY{k}{if} \PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)} \PY{o}{==} \PY{l+m+mi}{50501}\PY{p}{:}
+             \PY{n}{df} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{l+m+mi}{2822}\PY{p}{:}\PY{p}{:}\PY{p}{,}\PY{p}{:}\PY{p}{]}\PY{o}{.}\PY{n}{reset\PYZus{}index}\PY{p}{(}\PY{n}{drop} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}11}]:} \PY{n}{df}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{TIME}
+         \PY{n}{df}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{TIME}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,} \PY{n}{inplace} \PY{o}{=} \PY{k+kc}{True}\PY{p}{)}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}11}]:}                      NODO  TEMPERATURA  HUMEDAD RELATIVA  \textbackslash{}
+         TIME                                                       
+         2018-05-09 09:38:00     2           27                19   
+         2018-05-09 09:38:00     6            0                 0   
+         2018-05-09 09:49:00     3           27                65   
+         2018-05-09 09:49:00     6            0                 0   
+         2018-05-09 09:49:00     2           28                19   
+         {\ldots}                   {\ldots}          {\ldots}               {\ldots}   
+         2018-06-11 09:17:00     8           60                78   
+         2018-06-11 09:17:00     3           32                29   
+         2018-06-11 09:17:00     2           32                17   
+         2018-06-11 09:17:00     5           33                29   
+         2018-06-11 09:18:00     8           60                78   
+         
+                              HUMEDAD DE LA TIERRA  NIVEL UV  INTENSIDAD LUMÍNICA HORA  
+         TIME                                                                           
+         2018-05-09 09:38:00                 74.97         0                 5853   09  
+         2018-05-09 09:38:00                  0.00         0                    0   09  
+         2018-05-09 09:49:00                 94.07         0                 5824   09  
+         2018-05-09 09:49:00                  0.00         0                    0   09  
+         2018-05-09 09:49:00                 72.72         0                 5865   09  
+         {\ldots}                                   {\ldots}       {\ldots}                  {\ldots}  {\ldots}  
+         2018-06-11 09:17:00                  0.98         0                 5853   09  
+         2018-06-11 09:17:00                  1.14         0                 5835   09  
+         2018-06-11 09:17:00                  0.82         0                 5853   09  
+         2018-06-11 09:17:00                  6.43         0                 5865   09  
+         2018-06-11 09:18:00                  0.98         0                 5853   09  
+         
+         [47679 rows x 7 columns]
+\end{Verbatim}
+            
+    \subsection{Mormaliza las variables}\label{mormaliza-las-variables}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}12}]:} \PY{n}{df2} \PY{o}{=} \PY{n}{StandardScaler}\PY{p}{(}\PY{p}{)}\PY{o}{.}\PY{n}{fit\PYZus{}transform}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{)}
+         \PY{n}{df2} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{DataFrame}\PY{p}{(}\PY{n}{df2}\PY{p}{)}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}\PY{o}{.}\PY{n}{columns}
+         \PY{n}{df2}\PY{o}{.}\PY{n}{index} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{index}
+         \PY{n}{df}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]} \PY{o}{=} \PY{n}{df2}
+         \PY{n}{df}
+\end{Verbatim}
+
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}12}]:}                      NODO  TEMPERATURA  HUMEDAD RELATIVA  \textbackslash{}
+         TIME                                                       
+         2018-05-09 09:38:00     2    -0.365476         -1.303878   
+         2018-05-09 09:38:00     6    -2.463644         -2.102990   
+         2018-05-09 09:49:00     3    -0.365476          0.630816   
+         2018-05-09 09:49:00     6    -2.463644         -2.102990   
+         2018-05-09 09:49:00     2    -0.287766         -1.303878   
+         {\ldots}                   {\ldots}          {\ldots}               {\ldots}   
+         2018-06-11 09:17:00     8     2.198952          1.177577   
+         2018-06-11 09:17:00     3     0.023074         -0.883292   
+         2018-06-11 09:17:00     2     0.023074         -1.387995   
+         2018-06-11 09:17:00     5     0.100784         -0.883292   
+         2018-06-11 09:18:00     8     2.198952          1.177577   
+         
+                              HUMEDAD DE LA TIERRA  NIVEL UV  INTENSIDAD LUMÍNICA HORA  
+         TIME                                                                           
+         2018-05-09 09:38:00              1.168079 -0.193985             0.027809   09  
+         2018-05-09 09:38:00             -1.112554 -0.193985            -0.043789   09  
+         2018-05-09 09:49:00              1.749112 -0.193985             0.027454   09  
+         2018-05-09 09:49:00             -1.112554 -0.193985            -0.043789   09  
+         2018-05-09 09:49:00              1.099633 -0.193985             0.027956   09  
+         {\ldots}                                   {\ldots}       {\ldots}                  {\ldots}  {\ldots}  
+         2018-06-11 09:17:00             -1.082741 -0.193985             0.027809   09  
+         2018-06-11 09:17:00             -1.077874 -0.193985             0.027589   09  
+         2018-06-11 09:17:00             -1.087609 -0.193985             0.027809   09  
+         2018-06-11 09:17:00             -0.916949 -0.193985             0.027956   09  
+         2018-06-11 09:18:00             -1.082741 -0.193985             0.027809   09  
+         
+         [47679 rows x 7 columns]
+\end{Verbatim}
+            
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}13}]:} \PY{c+c1}{\PYZsh{} convierte a entero los registros de la columna HORA}
+         \PY{n}{df}\PY{o}{.}\PY{n}{HORA} \PY{o}{=} \PY{p}{[}\PY{n+nb}{int}\PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{HORA}\PY{p}{[}\PY{n}{x}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{x} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{n+nb}{len}\PY{p}{(}\PY{n}{df}\PY{p}{)}\PY{p}{)}\PY{p}{]}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}14}]:} \PY{n}{n} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{NODO}\PY{o}{.}\PY{n}{value\PYZus{}counts}\PY{p}{(}\PY{p}{)}
+         \PY{c+c1}{\PYZsh{} imprime los nodos contenidos en df y la cantidad de registros que posee}
+         \PY{n+nb}{print}\PY{p}{(}\PY{n}{n}\PY{p}{)}
+         \PY{n}{nodos}  \PY{o}{=} \PY{n}{n}\PY{o}{.}\PY{n}{index}\PY{o}{.}\PY{n}{tolist}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+3    14363
+5    11771
+2    11042
+8     8440
+6     1669
+4      394
+Name: NODO, dtype: int64
+
+    \end{Verbatim}
+
+    \subsection{Separa los nodos}\label{separa-los-nodos}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}15}]:} \PY{n}{tablas} \PY{o}{=} \PY{p}{\PYZob{}}\PY{p}{\PYZcb{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{nodos}\PY{p}{:}
+             \PY{n}{tablas}\PY{p}{[}\PY{n}{i}\PY{p}{]} \PY{o}{=} \PY{p}{(}\PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NODO == }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{i})).copy()\PYZsh{}.reset\PYZus{}index(drop=False))
+             
+         \PY{n}{tabla} \PY{o}{=} \PY{p}{[}\PY{p}{]}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{nodos}\PY{p}{:}
+             \PY{n}{tabla\PYZus{}nodo} \PY{o}{=} \PY{n}{df}\PY{o}{.}\PY{n}{query}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NODO == }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{i}).copy()\PYZsh{}.reset\PYZus{}index(drop=False)
+             \PY{n}{tabla\PYZus{}nodo}\PY{o}{.}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{n}{j}\PY{o}{+}\PY{n+nb}{str}\PY{p}{(}\PY{n}{tabla\PYZus{}nodo}\PY{o}{.}\PY{n}{NODO}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}\PY{p}{)} \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n}{tabla\PYZus{}nodo}\PY{o}{.}\PY{n}{columns}\PY{p}{]}
+             \PY{n}{tabla\PYZus{}nodo}\PY{o}{.}\PY{n}{drop}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{p}{[}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NODO}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{i}],inplace=True)
+             \PY{n}{tabla}\PY{o}{.}\PY{n}{append}\PY{p}{(}\PY{n}{tabla\PYZus{}nodo}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Realiza una gráfica interactiva de valores medidos por un
+nodo}\label{realiza-una-gruxe1fica-interactiva-de-valores-medidos-por-un-nodo}
+
+\subsubsection{"tablas" es un diccionario de DFs. Para acceder al DF
+correspondiente a cada nodo se hace tabla{[}nodo{]}, tabla{[}2{]} (nodo
+2).}\label{tablas-es-un-diccionario-de-dfs.-para-acceder-al-df-correspondiente-a-cada-nodo-se-hace-tablanodo-tabla2-nodo-2.}
+
+\paragraph{Cada DF tiene 7 columnas:}\label{cada-df-tiene-7-columnas}
+
+0 - TEMPERATURA\\
+1 - HUMEDAD RELATIVA\\
+2 - HUMEDAD DE LA TIERRA\\
+3 - HUMEDAD DE LA TIERRA\\
+4 - NIVEL UV\\
+5 - INTENSIDAD LUMÍNICA\\
+6 - HORA\\
+7 - TIME
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}41}]:} \PY{k}{for} \PY{n}{nodo} \PY{o+ow}{in} \PY{n}{nodos}\PY{p}{:}
+             \PY{n}{data} \PY{o}{=} \PY{p}{(}\PY{p}{[}\PY{p}{\PYZob{}}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{x}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{o}{.}\PY{n}{index}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{y}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{p}{[}\PY{n}{col}\PY{p}{]}\PY{p}{,}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{name}\PY{l+s+s1}{\PYZsq{}}\PY{p}{:} \PY{n}{col}\PY{p}{\PYZcb{}}
+                      \PY{k}{for} \PY{n}{col} \PY{o+ow}{in} \PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{]}\PY{p}{)}
+             \PY{n}{layout} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NODO }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{nodo},
+                           \PY{n}{yaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{MAGNITUD}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}\PY{p}{,}
+                           \PY{n}{xaxis} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{title} \PY{o}{=} \PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{FECHA}\PY{l+s+s1}{\PYZsq{}}\PY{p}{)}
+                          \PY{p}{)}
+             \PY{n}{fig} \PY{o}{=} \PY{n+nb}{dict}\PY{p}{(}\PY{n}{data}\PY{o}{=}\PY{n}{data}\PY{p}{,} \PY{n}{layout}\PY{o}{=}\PY{n}{layout}\PY{p}{)}
+             \PY{n}{iplot}\PY{p}{(}\PY{n}{fig}\PY{p}{,}\PY{n}{layout}\PY{p}{)}
+\end{Verbatim}
+
+
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    \subsection{Se presentan los periodos de medición observados para cada
+nodo, calculados para separaciones de más de 60 minutos entre los
+registros}\label{se-presentan-los-periodos-de-mediciuxf3n-observados-para-cada-nodo-calculados-para-separaciones-de-muxe1s-de-60-minutos-entre-los-registros}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}46}]:} \PY{c+c1}{\PYZsh{} Aplica la función separa\PYZus{}nodos, que calcula el tamaño de los dataframes entre periodos de medición con separación \PYZsh{}edge\PYZdq{}}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n}{nodos}\PY{p}{:}
+             \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{NODO }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}} \PY{o}{\PYZpc{}}\PY{k}{i})
+             \PY{n+nb}{print}\PY{p}{(}\PY{n}{funs}\PY{o}{.}\PY{n}{separa\PYZus{}datos}\PY{p}{(}\PY{n}{tablas}\PY{p}{[}\PY{n}{i}\PY{p}{]}\PY{p}{,}\PY{l+m+mi}{60}\PY{p}{)}\PY{p}{)}
+             
+                             
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+NODO 3
+               inicio                 fin  datos
+0 2018-05-09 09:50:00 2018-05-10 14:38:00   1710
+1 2018-05-23 10:01:00 2018-05-28 22:32:00   7930
+2 2018-06-05 10:16:00 2018-06-08 18:40:00   4698
+3 2018-06-11 08:57:00 2018-06-11 09:16:00     20
+NODO 5
+               inicio                 fin  datos
+0 2018-05-09 10:26:00 2018-05-10 14:37:00   1673
+1 2018-05-23 10:09:00 2018-05-26 08:34:00   4202
+2 2018-06-05 10:22:00 2018-06-09 06:39:00   4874
+3 2018-06-09 09:05:00 2018-06-10 21:54:00    989
+4 2018-06-11 00:04:00 2018-06-11 00:40:00     11
+5 2018-06-11 09:02:00 2018-06-11 09:16:00     15
+NODO 2
+               inicio                 fin  datos
+0 2018-05-09 09:49:00 2018-05-10 14:38:00   1722
+1 2018-05-23 09:23:00 2018-05-26 07:01:00   4141
+2 2018-06-05 10:12:00 2018-06-09 08:04:00   4971
+3 2018-06-09 09:48:00 2018-06-09 15:24:00    177
+4 2018-06-11 08:52:00 2018-06-11 09:16:00     25
+NODO 8
+                inicio                 fin  datos
+0  2018-05-24 09:42:00 2018-05-29 01:17:00   6431
+1  2018-05-29 06:57:00 2018-05-29 07:35:00      6
+2  2018-06-05 10:37:00 2018-06-05 21:57:00    614
+3  2018-06-06 10:49:00 2018-06-06 09:39:00      0
+4  2018-06-06 10:50:00 2018-06-06 14:31:00    110
+..                 {\ldots}                 {\ldots}    {\ldots}
+10 2018-06-10 18:02:00 2018-06-10 18:51:00      3
+11 2018-06-10 22:10:00 2018-06-10 21:03:00      0
+12 2018-06-11 00:04:00 2018-06-10 22:10:00      0
+13 2018-06-11 00:06:00 2018-06-11 03:14:00     61
+14 2018-06-11 09:09:00 2018-06-11 09:17:00      8
+
+[15 rows x 3 columns]
+NODO 6
+               inicio                 fin  datos
+0 2018-05-09 09:49:00 2018-05-10 14:38:00   1619
+1 2018-05-23 09:44:00 2018-05-23 10:37:00     47
+NODO 4
+               inicio                 fin  datos
+0 2018-05-09 10:36:00 2018-05-09 14:06:00    186
+1 2018-05-23 10:47:00 2018-05-23 14:04:00    198
+2 2018-05-24 10:09:00 2018-05-24 10:16:00      6
+
+    \end{Verbatim}
+
+    \subsection{Apartir de la información anterior se tiene
+que:}\label{apartir-de-la-informaciuxf3n-anterior-se-tiene-que}
+
+\begin{itemize}
+\item ~
+  \subsubsection{los nodos 2, 3, 5 estuvieron funcionando en tres
+  periodos de tiempo
+  consecutivos.}\label{los-nodos-2-3-5-estuvieron-funcionando-en-tres-periodos-de-tiempo-consecutivos.}
+
+  \subsubsection{Dicha simultaneidad se presenta mayormente entre las
+  fechas:}\label{dicha-simultaneidad-se-presenta-mayormente-entre-las-fechas}
+\item
+  2018-05-09 10:26:00 2018-05-10 14:37:00\\
+\item
+  2018-05-23 10:09:00 2018-05-26 07:01:00\\
+\item
+  2018-06-05 10:22:00 2018-06-08 18:40:00
+\item ~
+  \subsubsection{El nodo 8 comenzó a funcionar desde el 24 de mayo y
+  apartir de ese peridodo sus mediciones concuerdan con algunos periodos
+  de medición de los nodos 2, 3 y
+  5.}\label{el-nodo-8-comenzuxf3-a-funcionar-desde-el-24-de-mayo-y-apartir-de-ese-peridodo-sus-mediciones-concuerdan-con-algunos-periodos-de-mediciuxf3n-de-los-nodos-2-3-y-5.}
+\end{itemize}
+
+\subsubsection{la simultaneidad de mayor rango se presenta entre las
+fechas:}\label{la-simultaneidad-de-mayor-rango-se-presenta-entre-las-fechas}
+
+\begin{itemize}
+\item
+  2018-05-24 09:42:00 2018-05-26 07:01:00\\
+\item ~
+  \subsubsection{Los nodos 6 y 8 presentan la menor cantidad de
+  registros y se encuentran en fechas dispares a las de los demás
+  nodos.}\label{los-nodos-6-y-8-presentan-la-menor-cantidad-de-registros-y-se-encuentran-en-fechas-dispares-a-las-de-los-demuxe1s-nodos.}
+\end{itemize}
+
+    \subsection{Concatena los DFs contenidos en
+tabla}\label{concatena-los-dfs-contenidos-en-tabla}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}17}]:} \PY{n}{tabla} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{n}{tabla}\PY{p}{)}\PY{o}{.}\PY{n}{sort\PYZus{}index}\PY{p}{(}\PY{p}{)}
+         \PY{n}{tabla}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+C:\textbackslash{}Users\textbackslash{}Jergb\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}ipykernel\_launcher.py:1: FutureWarning:
+
+Sorting because non-concatenation axis is not aligned. A future version
+of pandas will change to not sort by default.
+
+To accept the future behavior, pass 'sort=True'.
+
+To retain the current behavior and silence the warning, pass sort=False
+
+
+
+    \end{Verbatim}
+
+\begin{Verbatim}[commandchars=\\\{\}]
+{\color{outcolor}Out[{\color{outcolor}17}]:}                      HORA2  HORA3  HORA4  HORA5  HORA6  HORA8  \textbackslash{}
+         TIME                                                            
+         2018-05-09 09:38:00    9.0    NaN    NaN    NaN    NaN    NaN   
+         2018-05-09 09:38:00    NaN    NaN    NaN    NaN    9.0    NaN   
+         2018-05-09 09:49:00    NaN    9.0    NaN    NaN    NaN    NaN   
+         2018-05-09 09:49:00    NaN    NaN    NaN    NaN    9.0    NaN   
+         2018-05-09 09:49:00    9.0    NaN    NaN    NaN    NaN    NaN   
+         {\ldots}                    {\ldots}    {\ldots}    {\ldots}    {\ldots}    {\ldots}    {\ldots}   
+         2018-06-11 09:17:00    NaN    NaN    NaN    NaN    NaN    9.0   
+         2018-06-11 09:17:00    9.0    NaN    NaN    NaN    NaN    NaN   
+         2018-06-11 09:17:00    NaN    9.0    NaN    NaN    NaN    NaN   
+         2018-06-11 09:17:00    NaN    NaN    NaN    9.0    NaN    NaN   
+         2018-06-11 09:18:00    NaN    NaN    NaN    NaN    NaN    9.0   
+         
+                              HUMEDAD DE LA TIERRA2  HUMEDAD DE LA TIERRA3  \textbackslash{}
+         TIME                                                                
+         2018-05-09 09:38:00               1.168079                    NaN   
+         2018-05-09 09:38:00                    NaN                    NaN   
+         2018-05-09 09:49:00                    NaN               1.749112   
+         2018-05-09 09:49:00                    NaN                    NaN   
+         2018-05-09 09:49:00               1.099633                    NaN   
+         {\ldots}                                    {\ldots}                    {\ldots}   
+         2018-06-11 09:17:00                    NaN                    NaN   
+         2018-06-11 09:17:00              -1.087609                    NaN   
+         2018-06-11 09:17:00                    NaN              -1.077874   
+         2018-06-11 09:17:00                    NaN                    NaN   
+         2018-06-11 09:18:00                    NaN                    NaN   
+         
+                              HUMEDAD DE LA TIERRA4  HUMEDAD DE LA TIERRA5  \textbackslash{}
+         TIME                                                                
+         2018-05-09 09:38:00                    NaN                    NaN   
+         2018-05-09 09:38:00                    NaN                    NaN   
+         2018-05-09 09:49:00                    NaN                    NaN   
+         2018-05-09 09:49:00                    NaN                    NaN   
+         2018-05-09 09:49:00                    NaN                    NaN   
+         {\ldots}                                    {\ldots}                    {\ldots}   
+         2018-06-11 09:17:00                    NaN                    NaN   
+         2018-06-11 09:17:00                    NaN                    NaN   
+         2018-06-11 09:17:00                    NaN                    NaN   
+         2018-06-11 09:17:00                    NaN              -0.916949   
+         2018-06-11 09:18:00                    NaN                    NaN   
+         
+                                  {\ldots}       NIVEL UV4  NIVEL UV5  NIVEL UV6  NIVEL UV8  \textbackslash{}
+         TIME                     {\ldots}                                                    
+         2018-05-09 09:38:00      {\ldots}             NaN        NaN        NaN        NaN   
+         2018-05-09 09:38:00      {\ldots}             NaN        NaN  -0.193985        NaN   
+         2018-05-09 09:49:00      {\ldots}             NaN        NaN        NaN        NaN   
+         2018-05-09 09:49:00      {\ldots}             NaN        NaN  -0.193985        NaN   
+         2018-05-09 09:49:00      {\ldots}             NaN        NaN        NaN        NaN   
+         {\ldots}                      {\ldots}             {\ldots}        {\ldots}        {\ldots}        {\ldots}   
+         2018-06-11 09:17:00      {\ldots}             NaN        NaN        NaN  -0.193985   
+         2018-06-11 09:17:00      {\ldots}             NaN        NaN        NaN        NaN   
+         2018-06-11 09:17:00      {\ldots}             NaN        NaN        NaN        NaN   
+         2018-06-11 09:17:00      {\ldots}             NaN  -0.193985        NaN        NaN   
+         2018-06-11 09:18:00      {\ldots}             NaN        NaN        NaN  -0.193985   
+         
+                              TEMPERATURA2  TEMPERATURA3  TEMPERATURA4  TEMPERATURA5  \textbackslash{}
+         TIME                                                                          
+         2018-05-09 09:38:00     -0.365476           NaN           NaN           NaN   
+         2018-05-09 09:38:00           NaN           NaN           NaN           NaN   
+         2018-05-09 09:49:00           NaN     -0.365476           NaN           NaN   
+         2018-05-09 09:49:00           NaN           NaN           NaN           NaN   
+         2018-05-09 09:49:00     -0.287766           NaN           NaN           NaN   
+         {\ldots}                           {\ldots}           {\ldots}           {\ldots}           {\ldots}   
+         2018-06-11 09:17:00           NaN           NaN           NaN           NaN   
+         2018-06-11 09:17:00      0.023074           NaN           NaN           NaN   
+         2018-06-11 09:17:00           NaN      0.023074           NaN           NaN   
+         2018-06-11 09:17:00           NaN           NaN           NaN      0.100784   
+         2018-06-11 09:18:00           NaN           NaN           NaN           NaN   
+         
+                              TEMPERATURA6  TEMPERATURA8  
+         TIME                                             
+         2018-05-09 09:38:00           NaN           NaN  
+         2018-05-09 09:38:00     -2.463644           NaN  
+         2018-05-09 09:49:00           NaN           NaN  
+         2018-05-09 09:49:00     -2.463644           NaN  
+         2018-05-09 09:49:00           NaN           NaN  
+         {\ldots}                           {\ldots}           {\ldots}  
+         2018-06-11 09:17:00           NaN      2.198952  
+         2018-06-11 09:17:00           NaN           NaN  
+         2018-06-11 09:17:00           NaN           NaN  
+         2018-06-11 09:17:00           NaN           NaN  
+         2018-06-11 09:18:00           NaN      2.198952  
+         
+         [47679 rows x 36 columns]
+\end{Verbatim}
+            
+    \subsection{Ordena las columnas por orden
+alfabético}\label{ordena-las-columnas-por-orden-alfabuxe9tico}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}18}]:} \PY{n}{tabla} \PY{o}{=} \PY{n}{tabla}\PY{o}{.}\PY{n}{reindex}\PY{p}{(}\PY{n}{columns} \PY{o}{=} \PY{n+nb}{sorted}\PY{p}{(}\PY{n}{tabla}\PY{o}{.}\PY{n}{columns}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \subsection{Matrices de correlación entre variables de diferentes
+nodos}\label{matrices-de-correlaciuxf3n-entre-variables-de-diferentes-nodos}
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}19}]:} \PY{n}{tcorr} \PY{o}{=} \PY{n}{tabla}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{k}{for} \PY{n}{i} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tcorr}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+             \PY{k}{for} \PY{n}{j} \PY{o+ow}{in} \PY{n+nb}{range}\PY{p}{(}\PY{l+m+mi}{0}\PY{p}{,}\PY{n+nb}{len}\PY{p}{(}\PY{n}{tcorr}\PY{p}{)}\PY{p}{,}\PY{l+m+mi}{6}\PY{p}{)}\PY{p}{:}
+                 \PY{n}{sns}\PY{o}{.}\PY{n}{heatmap}\PY{p}{(}\PY{n}{tcorr}\PY{p}{[}\PY{n}{i}\PY{p}{:}\PY{n}{i}\PY{o}{+}\PY{l+m+mi}{6}\PY{p}{]}\PY{o}{.}\PY{n}{iloc}\PY{p}{[}\PY{p}{:}\PY{p}{,}\PY{n}{j}\PY{p}{:}\PY{n}{j}\PY{o}{+}\PY{l+m+mi}{6}\PY{p}{]}\PY{p}{,} \PY{n}{annot}\PY{o}{=}\PY{k+kc}{True}\PY{p}{,} \PY{n}{cmap}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{RdYlGn}\PY{l+s+s1}{\PYZsq{}}\PY{p}{,}\PY{n}{fmt}\PY{o}{=}\PY{l+s+s2}{\PYZdq{}}\PY{l+s+s2}{.2f}\PY{l+s+s2}{\PYZdq{}}\PY{p}{)}
+                 \PY{n}{plt}\PY{o}{.}\PY{n}{show}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_6.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_7.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_8.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_9.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_10.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_11.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_12.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_13.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_14.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_15.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_16.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_17.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_18.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_19.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_20.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_21.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_22.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_23.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_24.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_25.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_26.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_27.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_28.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_29.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_30.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_31.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_32.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_33.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_34.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_37_35.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}44}]:} \PY{c+c1}{\PYZsh{} presentación gráfica de las variables entre los nodos, pero con matplotlib :v}
+         \PY{c+c1}{\PYZsh{} nodos = 2;3;4;5;6;8}
+         \PY{k}{for} \PY{n}{nodo} \PY{o+ow}{in} \PY{n}{nodos}\PY{p}{:}
+             \PY{n}{ejey} \PY{o}{=} \PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{:}\PY{l+m+mi}{6}\PY{p}{]}
+             \PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{y} \PY{o}{=} \PY{n}{ejey}\PY{p}{,} \PY{n}{figsize}\PY{o}{=}\PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{,}\PY{n}{title}\PY{o}{=}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{Nodo }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{k}{nodo})
+             \PY{n}{plt}\PY{o}{.}\PY{n}{tight\PYZus{}layout}\PY{p}{(}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_0.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_1.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_2.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_3.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_4.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{center}
+    \adjustimage{max size={0.9\linewidth}{0.9\paperheight}}{output_38_5.png}
+    \end{center}
+    { \hspace*{\fill} \\}
+    
+    \begin{Verbatim}[commandchars=\\\{\}]
+{\color{incolor}In [{\color{incolor}43}]:} \PY{c+c1}{\PYZsh{} grafica una variable para dos nodos y calcula la correlación de los dos nodos respecto a esa variable.}
+         \PY{n}{variable} \PY{o}{=} \PY{n}{tablas}\PY{p}{[}\PY{l+m+mi}{2}\PY{p}{]}\PY{o}{.}\PY{n}{columns}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{figure}\PY{p}{(}\PY{n}{figsize} \PY{o}{=} \PY{p}{[}\PY{l+m+mi}{20}\PY{p}{,}\PY{l+m+mi}{5}\PY{p}{]}\PY{p}{)}
+         \PY{n}{nodo1} \PY{o}{=} \PY{l+m+mi}{6}
+         \PY{n}{nodo2} \PY{o}{=} \PY{l+m+mi}{8}
+         \PY{k}{for} \PY{n}{nodo} \PY{o+ow}{in} \PY{p}{[}\PY{n}{nodo1}\PY{p}{,} \PY{n}{nodo2}\PY{p}{]}\PY{p}{:}
+             \PY{n}{plt}\PY{o}{.}\PY{n}{plot}\PY{p}{(}\PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{o}{.}\PY{n}{TIME}\PY{p}{,}\PY{n}{tablas}\PY{p}{[}\PY{n}{nodo}\PY{p}{]}\PY{p}{[}\PY{n}{variable}\PY{p}{]}\PY{p}{)}
+         \PY{n}{ncorr} \PY{o}{=} \PY{n}{pd}\PY{o}{.}\PY{n}{concat}\PY{p}{(}\PY{p}{[}\PY{n}{tablas}\PY{p}{[}\PY{n}{nodo1}\PY{p}{]}\PY{o}{.}\PY{n}{TEMPERATURA}\PY{p}{,}\PY{n}{tablas}\PY{p}{[}\PY{n}{nodo2}\PY{p}{]}\PY{o}{.}\PY{n}{TEMPERATURA}\PY{p}{]}\PY{p}{,}\PY{n}{axis}\PY{o}{=}\PY{l+m+mi}{1}\PY{p}{)}\PY{o}{.}\PY{n}{corr}\PY{p}{(}\PY{p}{)}
+         \PY{n}{corr} \PY{o}{=} \PY{n}{ncorr}\PY{o}{.}\PY{n}{values}\PY{p}{[}\PY{l+m+mi}{1}\PY{p}{]}\PY{p}{[}\PY{l+m+mi}{0}\PY{p}{]}
+         \PY{n}{plt}\PY{o}{.}\PY{n}{title}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ DE LOS NODOS }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ Y }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{variable}\PY{p}{,} \PY{n}{nodo1}\PY{p}{,} \PY{n}{nodo2}\PY{p}{)}\PY{p}{)}
+         \PY{n+nb}{print}\PY{p}{(}\PY{l+s+s1}{\PYZsq{}}\PY{l+s+s1}{CORRELACIÓN DE }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{ EN LOS NODOS }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{ Y }\PY{l+s+si}{\PYZpc{}d}\PY{l+s+s1}{: }\PY{l+s+si}{\PYZpc{}s}\PY{l+s+s1}{\PYZsq{}}\PY{o}{\PYZpc{}}\PY{p}{(}\PY{n}{variable}\PY{p}{,} \PY{n}{nodo1}\PY{p}{,}\PY{n}{nodo2}\PY{p}{,}\PY{n}{corr}\PY{p}{)}\PY{p}{)}
+\end{Verbatim}
+
+
+    \begin{Verbatim}[commandchars=\\\{\}]
+
+        ---------------------------------------------------------------------------
+
+        AttributeError                            Traceback (most recent call last)
+
+        <ipython-input-43-e6087c78cd63> in <module>()
+          5 nodo2 = 8
+          6 for nodo in [nodo1, nodo2]:
+    ----> 7     plt.plot(tablas[nodo].TIME,tablas[nodo][variable])
+          8 ncorr = pd.concat([tablas[nodo1].TEMPERATURA,tablas[nodo2].TEMPERATURA],axis=1).corr()
+          9 corr = ncorr.values[1][0]
+    
+
+        \textasciitilde{}\textbackslash{}Anaconda3\textbackslash{}lib\textbackslash{}site-packages\textbackslash{}pandas\textbackslash{}core\textbackslash{}generic.py in \_\_getattr\_\_(self, name)
+       4370             if self.\_info\_axis.\_can\_hold\_identifiers\_and\_holds\_name(name):
+       4371                 return self[name]
+    -> 4372             return object.\_\_getattribute\_\_(self, name)
+       4373 
+       4374     def \_\_setattr\_\_(self, name, value):
+    
+
+        AttributeError: 'DataFrame' object has no attribute 'TIME'
+
+    \end{Verbatim}
+
+    
+    \begin{verbatim}
+<Figure size 1440x360 with 0 Axes>
+    \end{verbatim}
+
+    
+
+    % Add a bibliography block to the postdoc
+    
+    
+    
+    \end{document}

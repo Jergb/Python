@@ -11,6 +11,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from ggplot import *
 import scipy as sp
+from scipy import stats
 from IPython.display import display, Markdown, Latex
 from scipy.spatial.distance import mahalanobis as MH
 from scipy.spatial.distance import euclidean as EU
@@ -132,7 +133,16 @@ def info_relation(df,v1,v2):
         plt.xlabel('%s %s'%(v1,mag[v1]))
         plt.ylabel('FRECUENCIA')
         plt.subplot(335)
-        plt.scatter(df[v1],df[v2],linewidths=.8,alpha=.6)        
+        plt.scatter(df[v1],df[v2],linewidths=.8,alpha=.6)
+        
+        x = df[v1]
+        y = df[v2]
+        print(len(df[v1]))
+        slope, intercept, r_value, p_value, std_err = stats.linregress(x, y)
+        plt.plot(x, intercept + slope*x, 'g', label='Regresión lineal')
+        
+        
+        
         for v in [v1,v2]:
             li,ls = tukey(df[v])
             try:
@@ -141,6 +151,8 @@ def info_relation(df,v1,v2):
                 df.loc[pd.DataFrame(ind).iloc[:,0],'o%d'%a] = pd.DataFrame(ind).iloc[:,1].values
                 a+=1
                 try:
+                    
+                    print(len(df[v1])-df['o1'].isna().sum())
                     plt.scatter(df['o1'],df[v2],color='r')
                     plt.subplot(337)
                     plt.plot(df['o1'],'ro')
@@ -150,7 +162,8 @@ def info_relation(df,v1,v2):
                     plt.subplot(335)
                 except KeyError:
                     pass
-                try: 
+                try:
+                    print(len(df[v1])-df['o2'].isna().sum())
                     plt.scatter(df[v1],df['o2'],color='r')     
                     plt.subplot(339)
                     plt.plot(df['o2'],'ro')
@@ -168,6 +181,7 @@ def info_relation(df,v1,v2):
         plt.boxplot(df[v2],flierprops=dict(markerfacecolor='r'))
         plt.xticks([])
     plt.tight_layout()
+    plt.show()
 
 def dist_variable(var):
     plt.figure(figsize=[17,6])
@@ -243,8 +257,6 @@ def filtrar_variables(variable,lim_i,lim_s):
         elif filtrar[variable][i] <= lim_i:
             filtro(filtrado,variable,i,filtrado[variable].quantile(.25))
             
-#    plt.plot(filtrado.loc[:,variable],'blue',label='filtrar')
-    #plt.legend()
     return
 
 def filtro_var(variable,lim_i,lim_s):
@@ -269,13 +281,12 @@ def up_ajuste(filtrar,variable):
     ajustado[variable]=filtrado[variable].copy()
     return
 
-def ajuste_variacion(variable):
+def ajuste_variacion(variable,ventana):
     'Ajusta los valores que presentan una variación superior a la std'
     global ajustado,filtrado,raw
     mag = {'TEMPERATURA':'°C', 'HUMEDAD RELATIVA':'%RH',
            'HUMEDAD DE LA TIERRA':'%', 'INTENSIDAD LUMÍNICA':'LX'}
     up_ajuste(filtrado,variable)
-    ventana=60
     rolling_std = ajustado[variable].rolling(ventana).std()
     rolling_std_inv=ajustado[variable].iloc[::-1].rolling(ventana).std().iloc[::-1]
     indice=rolling_std[rolling_std.isnull().values].index
